@@ -1,5 +1,5 @@
 # Quiz App Project
-
+![Project](https://github.com/TheDataNomad/QuizApp/workflows/Project/badge.svg)
 ### Team
     1- Ahmed Manji 
     2- Alejandro Martinez Rivero 
