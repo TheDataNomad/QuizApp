@@ -4,8 +4,8 @@ plugins {
     id 'checkstyle'
 }
 
-//group 'space.harbour.java'
-//version '1.0'
+group 'space.harbour.java'
+version '1.0'
 
 sourceCompatibility = 14
 targetCompatibility = 14
@@ -15,8 +15,9 @@ repositories {
 }
 
 dependencies {
-    compile group: 'javax.json', name: 'javax.json-api', 'version': '1.1.4'
+    compile group: 'javax.json', name: 'javax.json-com.quiz.project.api', 'version': '1.1.4'
     compile group: 'org.glassfish', name: 'javax.json', version: '1.1.4'
+    compile "com.sparkjava:spark-core:2.9.3"
 
     implementation 'org.jetbrains:annotations:19.0.0'
     testCompile group: 'junit', name: 'junit', version: '4.12'
