@@ -34,15 +34,16 @@ public class QuestionControllerTest extends TestCase {
         Question q1 = new Question();
 
         q1.course = "TestApi";
-        q1.text = "will this be added ?";
-        q1.dificulty = Question.Dificulty.MEDIUM;
+        q1.question = "will this be added ?";
+        q1.dificulty = Question.Dificulty.medium;
 
-        q1.answers = new ArrayList<>();
+        q1.incorrect = new ArrayList<>();
 
-        q1.answers.add(a1);
-        q1.answers.add(a2);
-        q1.answers.add(a3);
+        q1.incorrect.add(a1.text);
+        q1.incorrect.add(a2.text);
+        q1.incorrect.add(a3.text);
 
+        q1.correct = "none :(";
 
         Integer id = QuestionController.saveQuestion(q1);
         Assert.assertNotNull(id);

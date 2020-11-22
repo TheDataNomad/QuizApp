@@ -1,11 +1,14 @@
 package com.quiz.project.models;
 
 public class Results {
-    int score;
 
-    enum Dificulty {
+    public int id;
+    public int score;
+    public Dificulty dificulty;
+
+    public enum Dificulty {
         EASY, MEDIUM, HARD
     }
 
-    int courseId;
+    public int courseName;
 }

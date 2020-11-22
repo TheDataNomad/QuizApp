@@ -6,6 +6,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import com.quiz.project.models.Question;
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 import org.bson.Document;
 
 public class QuestionController {
@@ -52,6 +53,11 @@ public class QuestionController {
         return result;
     }
 
+    public static Document updateQuestion(int id, Question question) {
+        Document questionDoc =  Document.parse(question.toString());
+        return getQuestionsCollection().findOneAndUpdate(Filters.eq("id", id), questionDoc);
+    }
+
     public static  void  removeQuestion(int id) {
         getQuestionsCollection().deleteOne(Filters.eq("id", id));
     }
@@ -60,4 +66,16 @@ public class QuestionController {
         getQuestionsCollection().deleteMany(Filters.eq("course", course));
     }
 
+    public static String getRandomQuestions(String course, int amount) {
+        ArrayList<Question> all =  getAllQuestionsFromCourse(course);
+        System.out.println("getting " + amount + " from " + course);
+        //not optimal but its a funny way
+        while (all.size() >= amount) {
+            int randomNum = ThreadLocalRandom.current().nextInt(0, all.size());
+            all.remove(randomNum);
+        }
+
+        Gson gson = new Gson();
+        return gson.toJson(all);
+    }
 }

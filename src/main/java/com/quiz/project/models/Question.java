@@ -6,15 +6,16 @@ import org.bson.types.ObjectId;
 
 public class Question {
     public Integer id;
-    public String text;
+    public String question;
     public String course;
     public Dificulty dificulty;
 
     public enum Dificulty {
-        EASY, MEDIUM, HARD
+            easy, medium, hard
     }
 
-    public ArrayList<Answer> answers;
+    public String correct;
+    public ArrayList<String> incorrect;
 
     @Override
     public String toString() {
