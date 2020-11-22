@@ -19,6 +19,17 @@ public class Student {
         return gson.fromJson(studentJson, Student.class);
     }
 
+    //for Gson to work leave this
+    public Student() {
+    }
+
+    public Student(String name, String password) {
+        this.name = name;
+        this.password = password;
+        this.seen = new ArrayList<>();
+        this.results = new ArrayList<>();
+    }
+
     @Override
     public String toString() {
         Gson gson = new Gson();

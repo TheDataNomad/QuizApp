@@ -4,23 +4,29 @@ import static spark.Spark.get;
 import static spark.Spark.put;
 
 import com.quiz.project.controllers.QuestionController;
+import com.quiz.project.controllers.StudentController;
+import spark.Spark;
 
 public class Main {
     public static void main(String[] args) {
+
+        Spark.exception(Exception.class, (exception, request, response) -> {
+            exception.printStackTrace();
+        });
+
         System.out.println(" server running in -> http://localhost:4567");
 
         get("/hello", (req, res) -> "Quiz project");
 
-        put("/hello", ((req, res) -> {
-            System.out.println(req.body());
-            return "ok";
-        }));
-
-
 
         put("/login", ((req, res) -> {
-            System.out.println(req.body());
-            return "ok";
+            res.type("application/json");
+            return StudentController.login(req.body());
+        }));
+
+        put("/register", ((req, res) -> {
+            res.type("application/json");
+            return StudentController.register(req.body());
         }));
 
 
