@@ -1,15 +1,24 @@
 package com.quiz.project.models;
 
+import com.google.gson.Gson;
 import java.util.ArrayList;
+import org.bson.types.ObjectId;
 
 public class Question {
-    int id;
-    String text;
-    String course;
+    public Integer id;
+    public String text;
+    public String course;
+    public Dificulty dificulty;
 
-    enum Dificulty {
+    public enum Dificulty {
         EASY, MEDIUM, HARD
     }
 
-    ArrayList<Answer> answers;
+    public ArrayList<Answer> answers;
+
+    @Override
+    public String toString() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
+    }
 }
