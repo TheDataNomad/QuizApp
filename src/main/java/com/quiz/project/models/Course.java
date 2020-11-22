@@ -1,10 +1,15 @@
 package com.quiz.project.models;
 
-import java.util.ArrayList;
+
+import com.google.gson.Gson;
 
 public class Course {
-    int id;
-    String name;
+    public int id;
+    public String name;
 
-    ArrayList<Question> questions;
+    @Override
+    public String toString() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
+    }
 }

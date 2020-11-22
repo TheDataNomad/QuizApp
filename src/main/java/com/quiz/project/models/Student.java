@@ -9,5 +9,4 @@ public class Student {
     ArrayList<Results> results;
     ArrayList<Seen> seen;
 
-
 }
