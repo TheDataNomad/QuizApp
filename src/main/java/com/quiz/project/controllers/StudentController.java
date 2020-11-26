@@ -53,14 +53,13 @@ public class StudentController {
         return   gson.fromJson(studentJson, Student.class);
     }
 
-    public static String login(String body) {
-        Credentials cred = Credentials.fromJson(body);
-        Student student = getStudentFromName(cred.user);
+    public static String login(String user, String password) {
+        Student student = getStudentFromName(user);
 
-        if (student != null && cred.password.equals(student.password)) {
-            return student.toString();
+        if (student != null && password.equals(student.password)) {
+            return "{ \"message\" : \"success\"}";
         }
-        return "{ \"error\" : \"student dont exist or wrong password\"}";
+        return "{ \"message\" : \"failure\"}";
     }
 
 

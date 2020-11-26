@@ -1,14 +1,41 @@
 package com.quiz.project.api;
 
+import static spark.Spark.before;
 import static spark.Spark.get;
+import static spark.Spark.options;
 import static spark.Spark.put;
 
 import com.quiz.project.controllers.QuestionController;
 import com.quiz.project.controllers.StudentController;
+import com.quiz.project.models.Student;
 import spark.Spark;
 
 public class Main {
     public static void main(String[] args) {
+
+        options("/*",
+                (request, response) -> {
+
+                    String accessControlRequestHeaders = request
+                            .headers("Access-Control-Request-Headers");
+                    if (accessControlRequestHeaders != null) {
+                        response.header("Access-Control-Allow-Headers",
+                                accessControlRequestHeaders);
+                    }
+
+                    String accessControlRequestMethod = request
+                            .headers("Access-Control-Request-Method");
+                    if (accessControlRequestMethod != null) {
+                        response.header("Access-Control-Allow-Methods",
+                                accessControlRequestMethod);
+                    }
+
+                    return "OK";
+                });
+
+
+        before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
+
         Spark.exception(Exception.class, (exception, request, response) -> {
             exception.printStackTrace();
         });
@@ -18,10 +45,11 @@ public class Main {
         get("/hello", (req, res) -> "Quiz project");
 
 
-        put("/login", ((req, res) -> {
+        get("/login/:user/:pass", (req, res) -> {
             res.type("application/json");
-            return StudentController.login(req.body());
-        }));
+            return StudentController
+                    .login(req.params(":user"), req.params(":pass"));
+        });
 
         put("/register", ((req, res) -> {
             res.type("application/json");
