@@ -80,6 +80,7 @@ public class StudentController {
     }
 
     public static Document addSeen(int studentId, String body) {
+
         Student toChange = getStudentFromId(studentId);
         assert toChange != null;
         Gson gson = new Gson();
@@ -94,19 +95,19 @@ public class StudentController {
     }
 
     //addScore
-    public static Document addResult(int studentId, String jsonResult) {
+    public static Document addResult(String user, String jsonResult) {
         Gson gson = new Gson();
         Results results = gson.fromJson(jsonResult, Results.class);
-
-        Student toChange = getStudentFromId(studentId);
+        //Student toChange = getStudentFromId(studentId);
+        Student student = getStudentFromName(user);
 
         // autoincrement For more control
         results.id = MongoConector.getNextIndex("results");
-        assert toChange != null;
-        toChange.results.add(results);
+        assert student != null;
+        student.results.add(results);
 
-        getCollection().replaceOne(Filters.eq("id", studentId), toChange.toDocument());
-        return toChange.toDocument();
+        getCollection().replaceOne(Filters.eq("name", user), student.toDocument());
+        return student.toDocument();
     }
 
     //removeScore
@@ -121,8 +122,8 @@ public class StudentController {
     }
 
     //getScores
-    public ArrayList<Results> getResults(int studentId) {
-        Student student = getStudentFromId(studentId);
+    public static ArrayList<Results> getResults(String user) {
+        Student student = getStudentFromName(user);
         assert student != null;
         return student.results;
     }

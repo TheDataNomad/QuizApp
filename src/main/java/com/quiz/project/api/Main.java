@@ -62,10 +62,14 @@ public class Main {
             return StudentController.addSeen(studentId, req.body()).toJson();
         }));
 
-        put("/result/:studentId", ((req, res) -> {
-            int studentId = Integer.parseInt(req.params(":studentId"));
+        get("/result/:user", ((req, res) -> {
             res.type("application/json");
-            return StudentController.addResult(studentId, req.body()).toJson();
+            return StudentController.getResults(req.params(":user"));
+        }));
+
+        put("/result/:user", ((req, res) -> {
+            res.type("application/json");
+            return StudentController.addResult(req.params(":user"), req.body()).toJson();
         }));
 
 
