@@ -80,8 +80,25 @@ public class StudentController {
         return student;
     }
 
+    public static Document addSeen(int studentId, String body) {
+        Student toChange = getStudentFromId(studentId);
+        assert toChange != null;
+        Gson gson = new Gson();
+        ArrayList newSeen = gson.fromJson(body, ArrayList.class);
+        for (Object o : newSeen) {
+            Float seen = Float.parseFloat(o.toString());
+            toChange.seen.add(seen.intValue());
+        }
+        getCollection().replaceOne(Filters.eq("id", studentId), toChange.toDocument());
+
+        return toChange.toDocument();
+    }
+
     //addScore
-    public Document addResult(int studentId, Results results) {
+    public static Document addResult(int studentId, String jsonResult) {
+        Gson gson = new Gson();
+        Results results = gson.fromJson(jsonResult, Results.class);
+
         Student toChange = getStudentFromId(studentId);
 
         // autoincrement For more control
@@ -89,8 +106,8 @@ public class StudentController {
         assert toChange != null;
         toChange.results.add(results);
 
-        return getCollection().findOneAndUpdate(Filters.eq("id", studentId), toChange.toDocument());
-
+        getCollection().replaceOne(Filters.eq("id", studentId), toChange.toDocument());
+        return toChange.toDocument();
     }
 
     //removeScore

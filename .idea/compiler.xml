@@ -2,7 +2,8 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="14">
-      <module name="java.QuizApp.test" target="15" />
+      <module name="java.QuizApp.test.main" target="15" />
+      <module name="java.QuizApp.test.test" target="15" />
     </bytecodeTargetLevel>
   </component>
 </project>
